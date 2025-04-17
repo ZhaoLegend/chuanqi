@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>传奇 | 赛博空间</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css">
+    <link rel="stylesheet" href="chuan.css">
+    <style>
+        /* 仅保留强制横屏样式 */
+        @media screen and (orientation: portrait) {
+            body {
+                transform: rotate(90deg);
+                transform-origin: left top;
+                width: 100vh;
+                height: 100vw;
+                overflow-x: hidden;
+                position: absolute;
+                top: 100%;
+                left: 0;
+            }
+        }
+
+        /* 添加音乐播放按钮样式 */
+        #playButton {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: transparent;
+            border: none;
+            color: var(--neon-cyan);
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            text-shadow: 
+                0 0 5px var(--neon-cyan),
+                0 0 10px var(--neon-cyan),
+                0 0 20px var(--neon-cyan);
+            transition: all 0.3s ease;
+        }
+
+        #playButton:hover {
+            transform: scale(1.1);
+            text-shadow: 
+                0 0 10px var(--neon-cyan),
+                0 0 20px var(--neon-cyan),
+                0 0 30px var(--neon-cyan);
+        }
+    </style>
+    <script>
+        // 仅保留横屏检测
+        function handleOrientation() {
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                if (window.orientation === 0 || window.orientation === 180) {
+                    alert("请将设备横向持握以获得最佳体验");
+                }
+            }
+        }
+
+        window.addEventListener("load", handleOrientation);
+        window.addEventListener("orientationchange", handleOrientation);
+    </script>
+</head>
+<body>
+    <audio id="backgroundMusic" autoplay loop>
+        <source src="bgm.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放。
+    </audio>
+    
+    <button id="playButton" style="display: none;">&#x1F3B5;</button>
+    
+    <div class="top-light"></div>
+    <div class="bottom-light"></div>
+    <div class="left-light"></div>
+    <div class="right-light"></div>
+    
+    <header class="header">
+        <h1>Zhao Legend</h1>
+        <p>初级开发者</p>
+    </header>
+
+    <main>
+        <article class="project-card">
+            <div class="data-stream"></div>
+            <h3>关于我</h3>
+            <pre><code class="language-cpp">
+                热爱编程 专注于python Selenium浏览器自动化操作 
+                python requests BeautifulSoup Scrapy浏览器数据抓取(爬虫) 
+                在JavaScript方面 目前只会一些修改网页样式以及插入其他功能等... 
+            </code></pre>
+            <a href="https://zcq-githu.github.io/ZCQ-githu/1" class="cyber-button" style="right: 12rem;">查看项目1</a>
+            <a href="https://zcq-githu.github.io/ZCQ-githu/2" class="cyber-button">查看项目2</a>
+        </article>
+    </main>
+    
+    <script>
+        const audio = document.getElementById('backgroundMusic');
+        const playButton = document.getElementById('playButton');
+        let isPlaying = true;
+
+        // 尝试自动播放
+        audio.play().catch((error) => {
+            console.log('自动播放失败:', error);
+            playButton.style.display = 'block';
+            isPlaying = false;
+        });
+
+        // 音频播放状态管理
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                playButton.innerHTML = '&#x1F3B5;';
+            } else {
+                audio.play().catch(error => {
+                    console.log('播放失败:', error);
+                });
+                playButton.innerHTML = '&#x23F8;';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // 音频加载错误处理
+        audio.addEventListener('error', (e) => {
+            console.log('音频加载错误:', e);
+            playButton.style.display = 'block';
+            isPlaying = false;
+        });
+
+        playButton.addEventListener('click', togglePlay);
+    </script>
+</body>
+</html>
