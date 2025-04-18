@@ -137,7 +137,7 @@ body {
 .project-card h3,
 .project-card pre {
     /* 修改左侧内边距 */
-    padding-left: 3rem; 
+    padding-left: 1rem; 
     /* 修改上内边距 */
     padding-top: 0rem; 
     /* 修改下内边距 */
