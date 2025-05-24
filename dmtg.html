@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>赛博代码站</title>
+    <!--引入赛博字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron :wght@500&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <!-- 代码高亮支持 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+    
+    <style>
+          /* 赛博朋克色彩系统 */
+          :root {
+              --cyber-blue: #000b2e;
+              --neon-blue: #00f3ff;
+              --text-glow: #4dc6ff;
+          }
+
+          /* 字体设置 */
+          * {
+              font-family: 'Roboto Mono', monospace !important;
+          }
+
+          /* 基础布局 */
+          body {
+              background-color: var(--cyber-blue);
+              color: var(--neon-blue);
+              line-height: 1.6;
+              margin: 0;
+              padding: 20px;
+              /* 霓虹网格背景 */
+              background-image: 
+                  linear-gradient(rgba(0,255,255,0.1) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(0,255,255,0.1) 1px, transparent 1px);
+              background-size: 20px 20px;
+          }
+
+          /* 容器样式 */
+          .container {
+              max-width: 1200px;
+              margin: 0 auto;
+              padding: 2rem;
+          }
+
+          /* 标题样式 */
+          h1 {
+              color: var(--neon-blue);
+              text-align: center;
+              text-shadow: 0 0 10px var(--text-glow);
+              margin: 2rem 0;
+          }
+
+          /* 项目卡片 */
+          .project-card {
+              background: rgba(0, 15, 46, 0.5);
+              padding: 2rem;
+              margin: 2rem 0;
+              border: 2px solid var(--neon-blue);
+              box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+              animation: borderGlow 2s infinite alternate;
+          }
+
+          /* 子标题 */
+          h3 {
+              color: var(--neon-purple);
+              font-size: 2rem;
+              margin: 1.5rem 0;
+              border-bottom: 2px dashed var(--neon-green);
+              padding-bottom: 0.5rem;
+              text-shadow: 0 0 5px var(--neon-purple);
+          }
+
+          /* 技术标签 */
+          .tech-tag {
+              display: inline-block;
+              padding: 6px 12px;
+              background: rgba(255, 255, 255, 0.1);
+              border: 1px solid var(--neon-green);
+              margin: 0 5px 10px 0;
+              border-radius: 4px;
+              color: var(--neon-blue);
+              font-family: 'Orbitron', sans-serif;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+              animation: glow 2s infinite alternate;
+          }
+
+          /* 代码区域 */
+          pre[class*="language-"] {
+              background: #000520 !important;
+              border: 1px solid var(--neon-blue);
+              border-radius: 4px;
+          }
+
+          /* 强调文字 */
+          strong {
+              color: var(--neon-pink);
+              text-shadow: 0 0 5px var(--neon-pink);
+          }
+
+          /* 滚动条美化 */
+          ::-webkit-scrollbar {
+              width: 8px;
+              height: 8px;
+          }
+          ::-webkit-scrollbar-thumb {
+              background: var(--neon-blue);
+              border-radius: 4px;
+              box-shadow: 0 0 5px var(--neon-blue);
+          }
+          ::-webkit-scrollbar-track {
+              background: rgba(0, 15, 46, 0.5);
+              border-radius: 4px;
+          }
+
+          /* 页脚 */
+          .footer {
+              text-align: center;
+              margin-top: 2rem;
+              color: var(--neon-blue);
+          }
+
+          /* 水印 */
+          .watermark {
+              position: fixed;
+              bottom: 20px;
+              right: 20px;
+              color: var(--neon-blue);
+              opacity: 0.3;
+          }
+
+          .dynamic-button:hover {
+              transform: scale(1.05) rotate(5deg);
+              box-shadow: 0 0 30px var(--neon-pink), 0 0 40px var(--neon-blue);
+          }
+
+          /* 全息光效动画 */
+          @keyframes glow {
+              0% { box-shadow: 0 0 5px var(--neon-blue); }
+              100% { box-shadow: 0 0 15px var(--neon-blue), 0 0 20px var(--neon-pink); }
+          }
+
+          /* 新增边框动画 */
+          @keyframes borderGlow {
+              0% {
+                  border-color: var(--neon-blue);
+                  box-shadow: 0 0 10px var(--neon-blue),
+                              inset 0 0 10px rgba(0, 243, 255, 0.2);
+              }
+              100% {
+                  border-color: #ff00ff;
+                  box-shadow: 0 0 20px #ff00ff,
+                              inset 0 0 20px rgba(255, 0, 255, 0.2);
+              }
+          }
+
+          /* 新增代码容器动画 */
+          @keyframes codeGlow {
+              0% {
+                  border-color: var(--neon-blue);
+                  box-shadow: 0 0 5px var(--neon-blue);
+              }
+              50% {
+                  border-color: #00ff00;
+                  box-shadow: 0 0 15px #00ff00;
+              }
+              100% {
+                  border-color: #ff00ff;
+                  box-shadow: 0 0 10px #ff00ff;
+              }
+          }
+
+          /* 响应式调整 */
+         @media (max-width: 768px) {
+              h1 {
+                  font-size: 2.5rem;
+              }
+              .dynamic-button {
+                  width: 100px;
+                  height: 40px;
+                  font-size: 14px;
+              }
+          }
+
+          /* 代码容器 */
+          .code-container {
+              max-height: 800px;
+              overflow-y: auto;
+              margin: 20px 0;
+              background: #000520;
+              border: 1px solid var(--neon-blue);
+              border-radius: 4px;
+              box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+              animation: codeGlow 3s infinite alternate;
+          }
+
+          .code-title {
+              color: var(--neon-blue);
+              font-size: 1.2rem;
+              margin-bottom: 10px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+          }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 标题区 -->
+        <header>
+            <h1>视频劫持代码</h1>
+        </header>
+
+        <!-- 妖精视频代码展示区 -->
+        <article class="project-card">
+            <h3>妖精视频</h3>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Tampermonkey</span>
+            <div class="code-container">
+                <div class="code-title">Tampermonkey 脚本代码</div>
+                <pre class="language-javascript"><code class="language-javascript">
+// ==UserScript==
+// @name 妖精视频
+// @namespace http://tampermonkey.net/
+// @version 0.2
+// @description 一键下载并合并分段视频
+// @author YourName
+// @match https://270u512.com/*
+// @grant GM_xmlhttpRequest
+// @grant GM_download
+// @grant GM_addStyle
+// @connect c924081.com
+// @connect 17asmr.top
+// @connect v-h-kop.top
+// @connect w1.vvlxy.com
+// @connect 23.224.199.154
+// @connect w1.smlgsc.com
+// @connect 23.224.199.202:666
+// @require https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.min.js
+// @require https://cdn.jsdelivr.net/npm/mux.js@6.3.0/dist/mux.min.js
+// @require https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js
+// ==/UserScript==
+
+(function() {
+ 'use strict';
+
+ // 检查 CryptoJS 是否可用
+ if (typeof CryptoJS === 'undefined') {
+   console.error('CryptoJS 未能正确加载，视频解密功能可能无法使用');
+ }
+
+ let videoSegments = [];
+ let decryptionKey = null;
+ const SEGMENT_PATTERN = /\.(ts|mp4|m4s)(\?|$)/;
+ const KEY_PATTERN = /\.key$/;
+
+ const originalOpen = XMLHttpRequest.prototype.open;
+ XMLHttpRequest.prototype.open = function(method, url) {
+ if (SEGMENT_PATTERN.test(url)) {
+ videoSegments.push({
+ url: url,
+ index: videoSegments.length
+ });
+ } else if (KEY_PATTERN.test(url)) {
+ this.responseType = 'arraybuffer';
+ this.addEventListener('load', function() {
+ if (this.status === 200) {
+ decryptionKey = new Uint8Array(this.response);
+ }
+ });
+ }
+ return originalOpen.apply(this, arguments);
+ };
+
+ function createPanel() {
+ GM_addStyle(`
+ #download-panel {
+ position: fixed;
+ top: 20px;
+ right: 20px;
+ background: rgba(0,0,0,0.8);
+ padding: 15px;
+ color: white;
+ z-index: 99999;
+ border-radius: 8px;
+ box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+ min-width: 220px;
+ }
+ #download-panel button {
+ background: #409eff;
+ color: white;
+ border: none;
+ padding: 8px 15px;
+ border-radius: 4px;
+ cursor: pointer;
+ margin: 5px;
+ transition: opacity 0.3s;
+ }
+ #download-panel button:hover {
+ opacity: 0.8;
+ }
+ `);
+
+ const panel = document.createElement('div');
+ panel.id = 'download-panel';
+ panel.innerHTML = `
+ <div class="panel-header">
+ <h3 style="margin:0 0 10px 0;">🎬 视频下载助手</h3>
+ <div id="segment-counter" style="margin-bottom:10px;">🕹️ 已捕获片段: 0</div>
+ <div id="download-progress" style="margin-bottom:10px;"></div>
+ </div>
+ <div class="panel-body">
+ <button id="one-click-download">一键下载并合并视频</button>
+ </div>
+ `;
+ document.body.appendChild(panel);
+
+ panel.querySelector('#one-click-download')?.addEventListener('click', async () => {
+ const progress = document.getElementById('download-progress');
+ if (progress) progress.textContent = '正在合并视频...';
+
+ try {
+ let allData = [];
+
+ for (let i = 0; i < videoSegments.length; i++) {
+ if (progress) progress.textContent = `正在处理片段 ${i + 1}/${videoSegments.length}`;
+
+ try {
+ const response = await new Promise((resolve, reject) => {
+ GM_xmlhttpRequest({
+ method: "GET",
+ url: videoSegments[i].url,
+ responseType: 'arraybuffer',
+ headers: {
+ 'Referer': 'https://c924081.com/',
+ 'Origin': 'https://c924081.com',
+ 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'
+ },
+ onload: (response) => resolve(response),
+ onerror: (error) => reject(error)
+ });
+ });
+
+ let segmentData = new Uint8Array(response.response);
+
+ if (decryptionKey) {
+ if (progress) progress.textContent = `正在解密片段 ${i + 1}/${videoSegments.length}`;
+ segmentData = await decryptSegment(segmentData, decryptionKey);
+ }
+
+ allData.push(segmentData);
+ } catch (error) {
+ console.error(`处理片段 ${i + 1} 失败:`, error);
+ }
+ }
+
+ if (progress) progress.textContent = '正在合并视频...';
+
+ const totalLength = allData.reduce((acc, arr) => acc + arr.length, 0);
+ const finalArray = new Uint8Array(totalLength);
+
+ let offset = 0;
+ for (const arr of allData) {
+ finalArray.set(arr, offset);
+ offset += arr.length;
+ }
+
+ const blob = new Blob([finalArray], { type: 'video/MP2T' });
+ const a = document.createElement('a');
+ a.href = URL.createObjectURL(blob);
+ a.download = `完整视频_${Date.now()}.ts`;
+ document.body.appendChild(a);
+ a.click();
+ document.body.removeChild(a);
+ URL.revokeObjectURL(a.href);
+
+ if (progress) progress.textContent = '视频合并完成！';
+ } catch (error) {
+ console.error('合并视频失败:', error);
+ if (progress) progress.textContent = '视频合并失败！';
+ }
+ });
+
+ setInterval(() => {
+ const counter = document.getElementById('segment-counter');
+ if (counter) {
+ counter.textContent = `🕹️ 已捕获片段: ${videoSegments.length}`;
+ }
+ }, 1000);
+ }
+
+ async function decryptSegment(encrypted, key, iv) {
+ try {
+ const defaultIV = new Uint8Array(16);
+ const usedIV = iv || defaultIV;
+
+ const keyArray = new Uint8Array(key);
+ const ivArray = new Uint8Array(usedIV);
+
+ const encryptedArray = CryptoJS.lib.WordArray.create(encrypted);
+ const keyHex = CryptoJS.enc.Hex.parse(Array.from(keyArray).map(b => b.toString(16).padStart(2, '0')).join(''));
+ const ivHex = CryptoJS.enc.Hex.parse(Array.from(ivArray).map(b => b.toString(16).padStart(2, '0')).join(''));
+
+ const decrypted = CryptoJS.AES.decrypt(
+ { ciphertext: encryptedArray },
+ keyHex,
+ {
+ iv: ivHex,
+ mode: CryptoJS.mode.CBC,
+ padding: CryptoJS.pad.Pkcs7
+ }
+ );
+
+ const resultArray = new Uint8Array(decrypted.sigBytes);
+ const words = decrypted.words;
+ for (let i = 0; i < decrypted.sigBytes; i++) {
+ resultArray[i] = (words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
+ }
+
+ return resultArray;
+ } catch (error) {
+ console.error('解密失败:', error);
+ return encrypted;
+ }
+ }
+
+ // 等待页面加载完成后创建面板
+ if (document.readyState === 'loading') {
+ document.addEventListener('DOMContentLoaded', () => setTimeout(createPanel, 3000));
+ } else {
+ setTimeout(createPanel, 3000);
+ }
+})();
+            </code></pre>
+            </div>
+        </article>
+
+        <!-- 助眠视频代码展示区 -->
+        <article class="project-card">
+            <h3>助眠视频</h3>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Chrome Console</span>
+            <div class="code-container">
+                <pre class="language-javascript"><code class="language-javascript">
+//代码展示区二
+                </code></pre>
+            </div>
+        </article>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>最后更新时间：2025-05-25 13:32:03 UTC</p>
+            <p>作者：ZCQ-github</p>
+        </footer>
+    </div>
+
+    <!-- 水印 -->
+    <div class="watermark">
+        传奇工作室 © 2025
+    </div>
+
+    <script>
+        // 确保代码高亮
+        document.addEventListener('DOMContentLoaded', (event) => {
+            Prism.highlightAll();
+        });
+    </script>
+</body>
+</html>
